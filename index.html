@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NHL Power Board 2025–26</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EDF1F4; --surface:#FFFFFF; --line:#D3DBE2; --ink:#101B26; --muted:#556575;
+  --blue:#1F4E8C; --red:#C8102E; --amber:#B9770E; --soft:#E4EAEF; --grid:#E3E9EE;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0C131A; --surface:#131C25; --line:#263442; --ink:#E8EEF4; --muted:#93A5B6;
+    --blue:#6FA8E8; --red:#FF5A6E; --amber:#E3A33B; --soft:#1B2631; --grid:#1C2733;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0C131A; --surface:#131C25; --line:#263442; --ink:#E8EEF4; --muted:#93A5B6;
+  --blue:#6FA8E8; --red:#FF5A6E; --amber:#E3A33B; --soft:#1B2631; --grid:#1C2733;
+  color-scheme:dark;
+}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-text-size-adjust:100%}
+.rinkband{height:6px;background:linear-gradient(90deg,var(--blue) 0 34%,var(--red) 34% 66%,var(--blue) 66% 100%)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header.hero{padding:44px 0 28px}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(48px,9vw,92px);line-height:.95;margin:0 0 16px;letter-spacing:-.01em}
+.lede{max-width:62ch;font-size:18px;color:var(--ink);margin:0 0 10px}
+.byline{color:var(--muted);font-size:14px;margin:0}
+h2{font-family:var(--display);font-weight:600;font-size:34px;line-height:1.05;margin:0 0 8px}
+h3{font-family:var(--display);font-weight:600;font-size:22px;margin:22px 0 6px}
+section{padding:34px 0;border-top:1px solid var(--line)}
+section>p.intro{max-width:70ch;color:var(--muted);margin:0 0 20px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:18px}
+.presets{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 16px}
+.presets span{color:var(--muted);font-size:14px;margin-right:4px}
+.chip{font:inherit;font-size:14px;padding:6px 12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;cursor:pointer}
+.chip:hover{border-color:var(--blue)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip:focus-visible,.sortbtn:focus-visible,input[type=range]:focus-visible,tr[tabindex]:focus-visible,.dot:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.weights{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.wbox{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:14px 14px 12px}
+.wbox label{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-weight:600}
+.wbox .share{font-family:var(--display);font-size:26px;font-weight:600;color:var(--blue)}
+.wbox p{margin:6px 0 0;font-size:13.5px;line-height:1.45;color:var(--muted)}
+input[type=range]{width:100%;margin:8px 0 0;accent-color:var(--blue)}
+.note{color:var(--amber);font-size:14px;margin:10px 0 0;min-height:1.4em}
+.tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:3px}
+table{border-collapse:collapse;width:100%;min-width:900px;font-variant-numeric:tabular-nums}
+th,td{padding:8px 12px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th:nth-child(2),td:nth-child(2){text-align:left}
+th{font-weight:600;font-size:13.5px;color:var(--muted);background:var(--surface);vertical-align:bottom}
+.sortbtn{all:unset;cursor:pointer;display:inline-block;padding:2px 0;line-height:1.25}
+.sortbtn:hover{color:var(--ink)}
+th[aria-sort] .sortbtn{color:var(--ink)}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:var(--soft)}
+tbody tr.sel{background:var(--soft);box-shadow:inset 4px 0 0 var(--red)}
+td.rk{color:var(--muted);width:44px}
+td.tm{font-weight:600}
+td.tm small{display:block;font-weight:400;color:var(--muted);font-size:12.5px;line-height:1.2}
+.scorecell{display:flex;align-items:center;gap:10px;justify-content:flex-end}
+.bar{position:relative;width:90px;height:8px;background:var(--soft);border-radius:1px}
+.bar::after{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:var(--muted);opacity:.6}
+.bar i{position:absolute;top:0;bottom:0;background:var(--blue)}
+.bar i.neg{background:var(--red)}
+.score{font-family:var(--display);font-size:20px;font-weight:600;min-width:54px;text-align:right}
+.split{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:900px){.split{grid-template-columns:minmax(0,1fr)}}
+.chartbox{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:10px}
+svg{display:block;width:100%;height:auto}
+svg text{font-family:var(--body);fill:var(--muted);font-size:11px}
+svg .axislabel{font-size:12px}
+svg .tcode{fill:var(--ink);font-size:10px;font-weight:600;paint-order:stroke;stroke:var(--surface);stroke-width:3px;stroke-linejoin:round}
+svg .tcode.on{fill:var(--red);font-size:13px;font-weight:700}
+.dot{fill:var(--blue);opacity:.8;stroke:var(--surface);stroke-width:1.5;cursor:pointer}
+.dot.on{fill:var(--red);opacity:1}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:13px;line-height:1.4;padding:7px 10px;border-radius:3px;max-width:260px;opacity:0;transition:opacity .08s;z-index:5}
+.tip b{font-weight:600}
+.legend{display:flex;flex-wrap:wrap;gap:16px;margin:0 0 10px;font-size:14px;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;margin-right:6px;vertical-align:-1px;border-radius:1px}
+.detail h3{margin-top:0;font-size:34px;line-height:1}
+.detail .sub{color:var(--muted);margin:2px 0 16px}
+.frow{margin:0 0 14px}
+.frow .top{display:flex;justify-content:space-between;gap:8px;font-size:14.5px}
+.frow .top b{font-weight:600}
+.frow .rankn{color:var(--muted);font-variant-numeric:tabular-nums}
+.pbar{height:8px;background:var(--soft);margin-top:5px;border-radius:1px;overflow:hidden}
+.pbar i{display:block;height:100%;background:var(--blue)}
+.detail p.story{font-size:15px;margin:16px 0 0;padding-top:14px;border-top:1px solid var(--line)}
+.method{max-width:74ch}
+.method p,.method li{color:var(--ink)}
+.method code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em;background:var(--soft);padding:1px 5px;border-radius:2px}
+.method ul{padding-left:20px}
+.gaplist h3{margin:0 0 2px;font-size:22px}
+.gaplist h3:not(:first-child){margin-top:22px}
+.gaplist .sub{color:var(--muted);font-size:14px;margin:0 0 8px}
+.gbtn{all:unset;box-sizing:border-box;display:flex;justify-content:space-between;gap:8px;width:100%;padding:7px 8px;cursor:pointer;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.gbtn b{font-weight:600}
+.gbtn:hover{background:var(--soft)}
+.gbtn.on{background:var(--soft);box-shadow:inset 4px 0 0 var(--red)}
+.gbtn:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+footer{padding:26px 0 48px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<div class="rinkband"></div>
+<div class="wrap">
+
+<header class="hero">
+  <h1>NHL Power Board</h1>
+  <p class="lede">Goals decide games, but shot quality is a better guide to who will keep winning. Set your own weights, rank all 32 teams for 2025–26, and see which ones scored more or fewer goals than their chances deserved.</p>
+  <p class="byline">Regular season, all situations combined. Shot data from MoneyPuck.com, standings from Sports-Reference</p>
+</header>
+
+<section id="rank">
+  <h2>Power rankings</h2>
+  <p class="intro">Each factor is converted to a z-score across the 32 teams, then blended using the weights below. A score of 0 is a league-average team and +1 is one standard deviation better. Click a team to follow it through every chart.</p>
+
+  <div class="presets" id="presets"><span>Try a preset:</span></div>
+  <div class="weights" id="weights"></div>
+  <p class="note" id="wnote" role="status"></p>
+
+  <div class="tablewrap" style="margin-top:14px">
+    <table>
+      <thead><tr id="thead"></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+</section>
+
+<section id="points">
+  <h2>Standings points vs. shot quality</h2>
+  <p class="intro">Each team’s expected goal differential, built from the quality of its shots, is plotted against the standings points it earned. The blue line shows how many points that shot quality usually produces. <span id="fitnote"></span> Teams above the line earned more than their play suggests, often through close games and overtime results, and teams like that tend to slip back.</p>
+  <div class="split">
+    <div class="chartbox"><div id="ptsscatter"></div><div class="tip" id="tip0"></div></div>
+    <div class="panel detail" id="detail"></div>
+  </div>
+</section>
+
+<section id="expected">
+  <h2>Goals scored vs. goals expected</h2>
+  <p class="intro">The same expected goal differential, this time against the goals a team actually scored and allowed. Teams above the blue line scored more than their shots predicted. Teams below it scored less. Gaps like this tend to shrink the following season.</p>
+  <div class="split">
+    <div class="chartbox"><div id="scatter"></div><div class="tip" id="tip1"></div></div>
+    <div class="panel gaplist" id="gaplist"></div>
+  </div>
+</section>
+
+<section id="luck">
+  <h2>Where the gap comes from</h2>
+  <p class="intro">A team’s gap between actual and expected goal differential has two parts: scoring more than expected (finishing), and allowing fewer than expected (goaltending and shot-stopping). The black tick marks the total.</p>
+  <div class="legend"><span><i style="background:var(--blue)"></i>Finishing: goals for minus expected goals for</span><span><i style="background:var(--amber)"></i>Goaltending: expected goals against minus goals against</span></div>
+  <div class="chartbox"><div id="luckchart"></div><div class="tip" id="tip2"></div></div>
+</section>
+
+<section id="method" class="method">
+  <h2>Methodology</h2>
+  <h3>Data</h3>
+  <p>Two sources, both for the 2025–26 regular season, 32 teams, 82 games each. <b>MoneyPuck</b> supplies the shot and goal data: the “all situations” rows (even strength, power plays, penalty kills, 4-on-4, 3-on-3 and the rest) for the main ranking, plus the 5-on-4 and 4-on-5 rows for special teams. <b>Sports-Reference</b> supplies the standings: wins, losses, overtime losses, points, and its schedule strength figure.</p>
+  <p>Checks run before building: every team has 82 games in both files, wins plus losses plus overtime losses equal 82 for every team, points equal 2 × wins + overtime losses, and total goals for equal total goals against in each file. The standings list 8,205 goals and MoneyPuck 8,086. The difference is probably shootout goals, which standings credit and MoneyPuck leaves out, so this dashboard uses MoneyPuck’s goals everywhere except the record and points columns.</p>
+  <h3>Composite score</h3>
+  <p>For each factor, <code>z = (x − mean) / sd</code> across the 32 teams. The score is <code>Σ wᵢ·zᵢ / Σ wᵢ</code>. The five factors are:</p>
+  <ul>
+    <li><b>Expected goals share:</b> expected goals for ÷ (expected goals for + against).</li>
+    <li><b>High-danger share:</b> the same ratio using only high-danger chances.</li>
+    <li><b>Special teams:</b> power-play expected goals for per 60 minutes (5-on-4) minus penalty-kill expected goals against per 60 minutes (4-on-5).</li>
+    <li><b>Goal differential per game:</b> what actually happened on the scoreboard.</li>
+    <li><b>Schedule strength:</b> Sports-Reference’s figure for average opponent strength, where positive means a tougher schedule. It is reported to two decimals and ranges only from −0.07 to +0.06, so it is off by default and moves the rankings little.</li>
+  </ul>
+  <p>The default weights (40 / 20 / 15 / 25 / 0) favor process over results, because chance quality tends to carry over from one stretch of games to the next better than goals do. They are a judgment call, which is why the sliders exist.</p>
+  <h3>Points vs. shot quality</h3>
+  <p>A least-squares line, <code>points = a + b × expected goal differential</code>, fitted on the 32 teams. The gap between a team’s actual points and the line is the number shown as points above or below what its shot quality predicts. Rank vs. standings compares a team’s rank on your weights with its rank by points.</p>
+  <h3>Reading the “luck” charts</h3>
+  <p>MoneyPuck’s expected goals model values each shot by its location and type, but it does not know who took it or who was in goal. So the gap between actual and expected is not pure luck. Elite goalies and elite shooters really do beat the model. Treat large gaps as a reason to look closer, not as proof a team will regress.</p>
+  <h3>What this version can’t do</h3>
+  <ul>
+    <li>No week-by-week ranking history. The team data is one row per team for the whole season, so this is a full-season view.</li>
+    <li>No backtest, since that also needs game-level team data.</li>
+    <li>The schedule strength figure is coarse, so treat it as a tiebreaker rather than a driver.</li>
+  </ul>
+</section>
+
+<footer>Shot and goal data: MoneyPuck.com, used for non-commercial purposes with credit as their terms ask. Standings: Sports-Reference.</footer>
+</div>
+
+<script>
+const D = {"teams": [{"t": "NYR", "n": "New York Rangers", "gp": 82, "gf": 235, "ga": 249, "xgf": 237.2, "xga": 268.44, "hdf": 90.86, "hda": 110.1, "ppx": 8.757, "pkx": 7.579, "w": 34, "l": 39, "ol": 9, "pts": 77, "sos": 0.05}, {"t": "LAK", "n": "Los Angeles Kings", "gp": 82, "gf": 220, "ga": 238, "xgf": 248.96, "xga": 238.87, "hdf": 92.41, "hda": 80.28, "ppx": 6.269, "pkx": 7.827, "w": 35, "l": 27, "ol": 20, "pts": 90, "sos": -0.05}, {"t": "NYI", "n": "New York Islanders", "gp": 82, "gf": 229, "ga": 236, "xgf": 256.5, "xga": 276.12, "hdf": 96.87, "hda": 111.9, "ppx": 6.594, "pkx": 7.711, "w": 43, "l": 34, "ol": 5, "pts": 91, "sos": 0.03}, {"t": "MTL", "n": "Montréal Canadiens", "gp": 82, "gf": 279, "ga": 251, "xgf": 268.31, "xga": 273.39, "hdf": 107.33, "hda": 105.97, "ppx": 7.768, "pkx": 7.875, "w": 48, "l": 24, "ol": 10, "pts": 106, "sos": 0.04}, {"t": "NJD", "n": "New Jersey Devils", "gp": 82, "gf": 226, "ga": 253, "xgf": 261.2, "xga": 249.47, "hdf": 97.13, "hda": 94.48, "ppx": 8.246, "pkx": 6.69, "w": 42, "l": 37, "ol": 3, "pts": 87, "sos": 0.06}, {"t": "TOR", "n": "Toronto Maple Leafs", "gp": 82, "gf": 252, "ga": 295, "xgf": 238.41, "xga": 285.49, "hdf": 87.44, "hda": 107.12, "ppx": 7.039, "pkx": 7.934, "w": 32, "l": 36, "ol": 14, "pts": 78, "sos": 0.06}, {"t": "OTT", "n": "Ottawa Senators", "gp": 82, "gf": 275, "ga": 245, "xgf": 271.89, "xga": 221.02, "hdf": 106.9, "hda": 82.59, "ppx": 6.93, "pkx": 6.093, "w": 44, "l": 27, "ol": 11, "pts": 99, "sos": 0.01}, {"t": "BOS", "n": "Boston Bruins", "gp": 82, "gf": 268, "ga": 247, "xgf": 247.57, "xga": 277.57, "hdf": 95.88, "hda": 102.58, "ppx": 7.853, "pkx": 6.692, "w": 45, "l": 27, "ol": 10, "pts": 100, "sos": 0.04}, {"t": "EDM", "n": "Edmonton Oilers", "gp": 82, "gf": 282, "ga": 265, "xgf": 274.56, "xga": 257.25, "hdf": 102.93, "hda": 99.97, "ppx": 9.539, "pkx": 8.893, "w": 41, "l": 30, "ol": 11, "pts": 93, "sos": -0.07}, {"t": "TBL", "n": "Tampa Bay Lightning", "gp": 82, "gf": 286, "ga": 229, "xgf": 284.4, "xga": 241.48, "hdf": 112.39, "hda": 91.4, "ppx": 7.112, "pkx": 7.245, "w": 50, "l": 26, "ol": 6, "pts": 106, "sos": 0.01}, {"t": "UTA", "n": "Utah Mammoth", "gp": 82, "gf": 268, "ga": 240, "xgf": 261.53, "xga": 254.05, "hdf": 94.9, "hda": 101.47, "ppx": 7.844, "pkx": 7.875, "w": 43, "l": 33, "ol": 6, "pts": 92, "sos": -0.04}, {"t": "DET", "n": "Detroit Red Wings", "gp": 82, "gf": 239, "ga": 254, "xgf": 256.45, "xga": 252.38, "hdf": 94.48, "hda": 88.16, "ppx": 8.179, "pkx": 7.999, "w": 41, "l": 31, "ol": 10, "pts": 92, "sos": 0.05}, {"t": "BUF", "n": "Buffalo Sabres", "gp": 82, "gf": 283, "ga": 240, "xgf": 258.05, "xga": 264.51, "hdf": 99.2, "hda": 103.53, "ppx": 6.161, "pkx": 7.411, "w": 50, "l": 23, "ol": 9, "pts": 109, "sos": 0.02}, {"t": "VGK", "n": "Vegas Golden Knights", "gp": 82, "gf": 264, "ga": 242, "xgf": 264.89, "xga": 225.49, "hdf": 97.59, "hda": 85.01, "ppx": 8.263, "pkx": 6.308, "w": 39, "l": 26, "ol": 17, "pts": 95, "sos": -0.06}, {"t": "COL", "n": "Colorado Avalanche", "gp": 82, "gf": 298, "ga": 197, "xgf": 301.1, "xga": 231.31, "hdf": 113.84, "hda": 84.08, "ppx": 7.197, "pkx": 6.431, "w": 55, "l": 16, "ol": 11, "pts": 121, "sos": -0.07}, {"t": "SEA", "n": "Seattle Kraken", "gp": 82, "gf": 224, "ga": 257, "xgf": 223.93, "xga": 257.92, "hdf": 83.57, "hda": 97.98, "ppx": 7.287, "pkx": 8.07, "w": 34, "l": 37, "ol": 11, "pts": 79, "sos": -0.03}, {"t": "WSH", "n": "Washington Capitals", "gp": 82, "gf": 261, "ga": 238, "xgf": 269.9, "xga": 263.11, "hdf": 104.96, "hda": 92.76, "ppx": 6.89, "pkx": 7.348, "w": 43, "l": 30, "ol": 9, "pts": 95, "sos": 0.02}, {"t": "VAN", "n": "Vancouver Canucks", "gp": 82, "gf": 210, "ga": 314, "xgf": 234.39, "xga": 285.74, "hdf": 89.69, "hda": 106.36, "ppx": 7.969, "pkx": 8.333, "w": 25, "l": 49, "ol": 8, "pts": 58, "sos": 0.0}, {"t": "PIT", "n": "Pittsburgh Penguins", "gp": 82, "gf": 290, "ga": 258, "xgf": 272.39, "xga": 259.17, "hdf": 101.04, "hda": 98.39, "ppx": 7.794, "pkx": 6.161, "w": 41, "l": 25, "ol": 16, "pts": 98, "sos": 0.03}, {"t": "FLA", "n": "Florida Panthers", "gp": 82, "gf": 246, "ga": 274, "xgf": 265.21, "xga": 265.22, "hdf": 97.46, "hda": 113.05, "ppx": 8.328, "pkx": 6.195, "w": 40, "l": 38, "ol": 4, "pts": 84, "sos": 0.05}, {"t": "WPG", "n": "Winnipeg Jets", "gp": 82, "gf": 229, "ga": 256, "xgf": 247.44, "xga": 263.63, "hdf": 99.75, "hda": 109.48, "ppx": 7.212, "pkx": 7.923, "w": 35, "l": 35, "ol": 12, "pts": 82, "sos": -0.01}, {"t": "SJS", "n": "San Jose Sharks", "gp": 82, "gf": 249, "ga": 290, "xgf": 241.67, "xga": 264.33, "hdf": 96.54, "hda": 100.39, "ppx": 7.404, "pkx": 7.947, "w": 39, "l": 35, "ol": 8, "pts": 86, "sos": -0.03}, {"t": "NSH", "n": "Nashville Predators", "gp": 82, "gf": 242, "ga": 267, "xgf": 251.09, "xga": 269.8, "hdf": 98.3, "hda": 104.13, "ppx": 6.389, "pkx": 7.107, "w": 38, "l": 34, "ol": 10, "pts": 86, "sos": -0.01}, {"t": "DAL", "n": "Dallas Stars", "gp": 82, "gf": 273, "ga": 222, "xgf": 259.26, "xga": 237.93, "hdf": 109.91, "hda": 92.93, "ppx": 8.801, "pkx": 7.374, "w": 50, "l": 20, "ol": 12, "pts": 112, "sos": -0.04}, {"t": "STL", "n": "St. Louis Blues", "gp": 82, "gf": 230, "ga": 254, "xgf": 221.97, "xga": 246.8, "hdf": 77.46, "hda": 94.62, "ppx": 5.335, "pkx": 6.866, "w": 37, "l": 33, "ol": 12, "pts": 86, "sos": -0.02}, {"t": "CGY", "n": "Calgary Flames", "gp": 82, "gf": 208, "ga": 256, "xgf": 232.23, "xga": 270.16, "hdf": 82.59, "hda": 99.74, "ppx": 5.912, "pkx": 7.208, "w": 34, "l": 39, "ol": 9, "pts": 77, "sos": -0.02}, {"t": "CAR", "n": "Carolina Hurricanes", "gp": 82, "gf": 291, "ga": 236, "xgf": 300.64, "xga": 235.15, "hdf": 111.6, "hda": 90.29, "ppx": 7.676, "pkx": 6.917, "w": 53, "l": 22, "ol": 7, "pts": 113, "sos": 0.01}, {"t": "MIN", "n": "Minnesota Wild", "gp": 82, "gf": 268, "ga": 235, "xgf": 265.88, "xga": 242.92, "hdf": 104.73, "hda": 84.89, "ppx": 7.254, "pkx": 7.266, "w": 46, "l": 24, "ol": 12, "pts": 104, "sos": -0.04}, {"t": "CHI", "n": "Chicago Blackhawks", "gp": 82, "gf": 210, "ga": 270, "xgf": 219.25, "xga": 277.46, "hdf": 81.65, "hda": 103.32, "ppx": 6.805, "pkx": 7.431, "w": 29, "l": 39, "ol": 14, "pts": 72, "sos": -0.01}, {"t": "PHI", "n": "Philadelphia Flyers", "gp": 82, "gf": 240, "ga": 239, "xgf": 241.58, "xga": 232.25, "hdf": 92.74, "hda": 85.9, "ppx": 7.09, "pkx": 7.147, "w": 43, "l": 27, "ol": 12, "pts": 98, "sos": 0.04}, {"t": "ANA", "n": "Anaheim Ducks", "gp": 82, "gf": 265, "ga": 288, "xgf": 285.6, "xga": 275.2, "hdf": 100.98, "hda": 101.13, "ppx": 7.467, "pkx": 7.911, "w": 43, "l": 33, "ol": 6, "pts": 92, "sos": -0.06}, {"t": "CBJ", "n": "Columbus Blue Jackets", "gp": 82, "gf": 246, "ga": 251, "xgf": 258.93, "xga": 258.77, "hdf": 98.29, "hda": 97.43, "ppx": 6.916, "pkx": 8.642, "w": 40, "l": 30, "ol": 12, "pts": 92, "sos": 0.04}]};
+const MINUS = "\u2212";
+const sg = (v,d=0)=>{const s=Math.abs(v).toFixed(d);return v>0&&Number(s)!==0?"+"+s:(v<0&&Number(s)!==0?MINUS+s:s)};
+const ord = n=>{const r=n%100;if(r>=11&&r<=13)return n+"th";return n+({1:"st",2:"nd",3:"rd"}[n%10]||"th")};
+
+const factors = [
+  {key:"xg", label:"Expected goals share", help:"Share of all expected goals in the team’s games. The best single guide to future results.", w:40,
+    get:t=>t.xgf/(t.xgf+t.xga), fmt:v=>(v*100).toFixed(1)+"%"},
+  {key:"hd", label:"High-danger share", help:"The same share, counting only the best scoring chances. Rewards teams that win the slot.", w:20,
+    get:t=>t.hdf/(t.hdf+t.hda), fmt:v=>(v*100).toFixed(1)+"%"},
+  {key:"st", label:"Special teams", help:"Power-play chances created minus penalty-kill chances allowed, per 60 minutes.", w:15,
+    get:t=>t.ppx-t.pkx, fmt:v=>sg(v,2)},
+  {key:"gd", label:"Goal differential", help:"Goals for minus goals against, per game. What the scoreboard recorded, luck included.", w:25,
+    get:t=>(t.gf-t.ga)/t.gp, fmt:v=>sg(v,2)},
+  {key:"sos", label:"Schedule strength", help:"Credit for facing tougher opponents. Reported to two decimals, so the effect is small. Off by default.", w:0,
+    get:t=>t.sos, fmt:v=>sg(v,2)}
+];
+const presets = [
+  {name:"Balanced", w:[40,20,15,25,0]},
+  {name:"Shot quality only", w:[50,30,20,0,0]},
+  {name:"Results only", w:[0,0,0,100,0]},
+  {name:"Even split", w:[25,25,25,25,0]}
+];
+
+const teams = D.teams.map(t=>({...t, gd:t.gf-t.ga, xgd:t.xgf-t.xga, fin:t.gf-t.xgf, gk:t.xga-t.ga}));
+teams.forEach(t=>{t.gap=t.gd-t.xgd;t.f={};t.z={};t.fr={}});
+factors.forEach(f=>{
+  teams.forEach(t=>t.f[f.key]=f.get(t));
+  const vals=teams.map(t=>t.f[f.key]);
+  const mean=vals.reduce((a,b)=>a+b,0)/vals.length;
+  const sd=Math.sqrt(vals.reduce((a,b)=>a+(b-mean)**2,0)/vals.length);
+  teams.forEach(t=>{t.z[f.key]=(t.f[f.key]-mean)/sd;t.fr[f.key]=1+vals.filter(v=>v>t.f[f.key]+1e-12).length});
+});
+teams.forEach(t=>{
+  t.gdRank=1+teams.filter(o=>o.gd>t.gd).length;
+  t.ptsRank=1+teams.filter(o=>o.pts>t.pts).length;
+});
+/* least-squares fit: standings points from expected goal differential */
+const mxd=teams.reduce((s,t)=>s+t.xgd,0)/teams.length, mpt=teams.reduce((s,t)=>s+t.pts,0)/teams.length;
+const sxy=teams.reduce((s,t)=>s+(t.xgd-mxd)*(t.pts-mpt),0), sxx=teams.reduce((s,t)=>s+(t.xgd-mxd)**2,0), syy=teams.reduce((s,t)=>s+(t.pts-mpt)**2,0);
+const fitB=sxy/sxx, fitA=mpt-fitB*mxd, fitR2=sxy*sxy/(sxx*syy);
+teams.forEach(t=>{t.xpts=fitA+fitB*t.xgd;t.pgap=t.pts-t.xpts});
+const byCode = Object.fromEntries(teams.map(t=>[t.t,t]));
+
+let sel = null, sortKey = "score", sortDir = -1;
+
+function recompute(){
+  const tw = factors.reduce((s,f)=>s+f.w,0);
+  const eff = tw>0 ? factors.map(f=>f.w) : factors.map(()=>1);
+  const sum = eff.reduce((a,b)=>a+b,0);
+  teams.forEach(t=>{t.score = factors.reduce((s,f,i)=>s+eff[i]*t.z[f.key],0)/sum});
+  teams.forEach(t=>{t.rank = 1+teams.filter(o=>o.score>t.score+1e-12).length; t.rgap=t.ptsRank-t.rank});
+  document.getElementById("wnote").textContent = tw>0 ? "" : "All weights are zero, so the table is showing an even split.";
+}
+
+/* weights UI */
+function buildWeights(){
+  const box=document.getElementById("weights");
+  box.innerHTML=factors.map(f=>`
+    <div class="wbox">
+      <label for="w-${f.key}"><span>${f.label}</span><span class="share" id="s-${f.key}"></span></label>
+      <input type="range" id="w-${f.key}" min="0" max="100" step="5" value="${f.w}">
+      <p>${f.help}</p>
+    </div>`).join("");
+  factors.forEach(f=>{
+    document.getElementById("w-"+f.key).addEventListener("input",e=>{f.w=+e.target.value;update()});
+  });
+  const pr=document.getElementById("presets");
+  presets.forEach((p,i)=>{
+    const b=document.createElement("button");
+    b.className="chip";b.type="button";b.textContent=p.name;b.dataset.i=i;
+    b.addEventListener("click",()=>{factors.forEach((f,j)=>{f.w=p.w[j];document.getElementById("w-"+f.key).value=f.w});update()});
+    pr.appendChild(b);
+  });
+}
+function updateWeightLabels(){
+  const tw=factors.reduce((s,f)=>s+f.w,0);
+  factors.forEach(f=>{document.getElementById("s-"+f.key).textContent = tw>0 ? Math.round(f.w/tw*100)+"%" : "0%"});
+  document.querySelectorAll("#presets .chip").forEach(b=>{
+    const p=presets[+b.dataset.i];
+    const ptw=p.w.reduce((a,c)=>a+c,0);
+    const same = tw>0 && factors.every((f,j)=>Math.abs(f.w/tw-p.w[j]/ptw)<1e-9);
+    b.setAttribute("aria-pressed",same?"true":"false");
+  });
+}
+
+/* table */
+const cols = [
+  {k:"rank",  label:"#",                    get:t=>t.rank, asc:true},
+  {k:"team",  label:"Team",                 get:t=>t.n, asc:true},
+  {k:"score", label:"Score",                get:t=>t.score},
+  {k:"rec",   label:"Record (W-L-OTL)",     get:t=>t.w+t.ol*0.001},
+  {k:"pts",   label:"Points",               get:t=>t.pts},
+  {k:"xg",    label:"Expected goals share", get:t=>t.f.xg},
+  {k:"hd",    label:"High-danger share",    get:t=>t.f.hd},
+  {k:"st",    label:"Special teams",        get:t=>t.f.st},
+  {k:"gd",    label:"Goal diff.",           get:t=>t.gd},
+  {k:"rgap",  label:"Rank vs. standings",   get:t=>t.rgap, title:"Spots higher (+) or lower (−) than the team’s points rank in the standings"}
+];
+function buildHead(){
+  document.getElementById("thead").innerHTML = cols.map(c=>`<th scope="col" data-k="${c.k}"><button class="sortbtn" type="button" ${c.title?`title="${c.title}"`:""}>${c.label}</button></th>`).join("");
+  document.querySelectorAll("#thead th").forEach(th=>{
+    th.querySelector("button").addEventListener("click",()=>{
+      const k=th.dataset.k, c=cols.find(x=>x.k===k);
+      if(sortKey===k){sortDir*=-1}else{sortKey=k;sortDir=c.asc?1:-1}
+      renderTable();
+    });
+  });
+}
+function renderTable(){
+  const c=cols.find(x=>x.k===sortKey);
+  const rows=[...teams].sort((a,b)=>{
+    const x=c.get(a),y=c.get(b);
+    const r = typeof x==="string" ? x.localeCompare(y) : x-y;
+    return (r||a.rank-b.rank)*sortDir;
+  });
+  const maxAbs=Math.max(...teams.map(t=>Math.abs(t.score)),0.01);
+  document.querySelectorAll("#thead th").forEach(th=>{
+    if(th.dataset.k===sortKey) th.setAttribute("aria-sort",sortDir>0?"ascending":"descending"); else th.removeAttribute("aria-sort");
+  });
+  document.getElementById("tbody").innerHTML = rows.map(t=>{
+    const w=Math.abs(t.score)/maxAbs*50;
+    const bar=t.score>=0?`<i style="left:50%;width:${w}%"></i>`:`<i class="neg" style="right:50%;width:${w}%"></i>`;
+    return `<tr data-t="${t.t}" tabindex="0" class="${sel===t.t?"sel":""}" aria-selected="${sel===t.t}">
+      <td class="rk">${t.rank}</td>
+      <td class="tm">${t.n}<small>${t.t}</small></td>
+      <td><div class="scorecell"><div class="bar">${bar}</div><span class="score">${sg(t.score,2)}</span></div></td>
+      <td>${t.w}-${t.l}-${t.ol}</td>
+      <td>${t.pts}</td>
+      <td>${factors[0].fmt(t.f.xg)}</td>
+      <td>${factors[1].fmt(t.f.hd)}</td>
+      <td>${factors[2].fmt(t.f.st)}</td>
+      <td>${sg(t.gd)}</td>
+      <td>${t.rgap===0?"0":sg(t.rgap)}</td>
+    </tr>`;
+  }).join("");
+  document.querySelectorAll("#tbody tr").forEach(tr=>{
+    tr.addEventListener("click",()=>select(tr.dataset.t));
+    tr.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();select(tr.dataset.t)}});
+  });
+}
+
+/* tooltips */
+function tipShow(tipEl,wrap,evt,html){
+  const r=wrap.getBoundingClientRect();
+  tipEl.innerHTML=html;tipEl.style.opacity=1;
+  let x=evt.clientX-r.left+14,y=evt.clientY-r.top+14;
+  const tw=tipEl.offsetWidth;
+  if(x+tw>r.width-4)x=evt.clientX-r.left-tw-14;
+  tipEl.style.left=Math.max(4,x)+"px";tipEl.style.top=y+"px";
+}
+const tipHide=el=>{el.style.opacity=0};
+const tipGoals=t=>`<b>${t.n}</b><br>Actual ${sg(t.gd)}, expected ${sg(t.xgd,0)}<br>Gap ${sg(t.gap,0)} (finishing ${sg(t.fin,0)}, goaltending ${sg(t.gk,0)})`;
+const tipPts=t=>`<b>${t.n}</b><br>${t.pts} points (${t.w}-${t.l}-${t.ol})<br>Shot quality predicts ${t.xpts.toFixed(0)}, a gap of ${sg(t.pgap,0)}`;
+
+/* generic scatter */
+function drawScatter(o){
+  const W=640,H=o.H,m={l:56,r:16,t:16,b:52};
+  const sx=v=>m.l+(v-o.xd[0])/(o.xd[1]-o.xd[0])*(W-m.l-m.r);
+  const sy=v=>H-m.b-(v-o.yd[0])/(o.yd[1]-o.yd[0])*(H-m.t-m.b);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${o.aria}">`;
+  o.xt.forEach(v=>{
+    s+=`<line x1="${sx(v)}" x2="${sx(v)}" y1="${m.t}" y2="${H-m.b}" stroke="var(--grid)"/>`;
+    s+=`<text x="${sx(v)}" y="${H-m.b+18}" text-anchor="middle">${o.fx(v)}</text>`;
+  });
+  o.yt.forEach(v=>{
+    s+=`<line x1="${m.l}" x2="${W-m.r}" y1="${sy(v)}" y2="${sy(v)}" stroke="var(--grid)"/>`;
+    s+=`<text x="${m.l-8}" y="${sy(v)+4}" text-anchor="end">${o.fy(v)}</text>`;
+  });
+  s+=`<line x1="${sx(0)}" x2="${sx(0)}" y1="${m.t}" y2="${H-m.b}" stroke="var(--red)" stroke-width="1.5" stroke-dasharray="6 5" opacity=".7"/>`;
+  if(o.zeroY)s+=`<line x1="${m.l}" x2="${W-m.r}" y1="${sy(0)}" y2="${sy(0)}" stroke="var(--red)" stroke-width="1.5" stroke-dasharray="6 5" opacity=".7"/>`;
+  const L=o.line;
+  s+=`<line x1="${sx(L[0])}" y1="${sy(L[1])}" x2="${sx(L[2])}" y2="${sy(L[3])}" stroke="var(--blue)" stroke-width="2"/>`;
+  s+=`<text x="${m.l+10}" y="${m.t+18}" style="font-weight:600">${o.zoneTL}</text>`;
+  s+=`<text x="${W-m.r-10}" y="${H-m.b-12}" text-anchor="end" style="font-weight:600">${o.zoneBR}</text>`;
+  s+=`<text class="axislabel" x="${(m.l+W-m.r)/2}" y="${H-10}" text-anchor="middle">${o.xlab}</text>`;
+  s+=`<text class="axislabel" transform="translate(14 ${(m.t+H-m.b)/2}) rotate(-90)" text-anchor="middle">${o.ylab}</text>`;
+  const order=[...teams].sort((a,b)=>(a.t===sel)-(b.t===sel));
+  order.forEach(t=>{
+    const on=t.t===sel,cx=sx(o.gx(t)),cy=sy(o.gy(t));
+    s+=`<g data-t="${t.t}"><circle class="dot ${on?"on":""}" cx="${cx}" cy="${cy}" r="${on?8:5.5}" tabindex="0" role="button" aria-label="${o.dotLabel(t)}"/>`+
+       `<text class="tcode ${on?"on":""}" x="${cx+(on?11:8)}" y="${cy+3.5}" pointer-events="none">${t.t}</text></g>`;
+  });
+  s+="</svg>";
+  const host=document.getElementById(o.host);host.innerHTML=s;
+  const wrap=host.parentElement,tip=document.getElementById(o.tip);
+  host.querySelectorAll("g[data-t]").forEach(g=>{
+    const t=byCode[g.dataset.t],c=g.querySelector("circle");
+    c.addEventListener("mousemove",e=>tipShow(tip,wrap,e,o.tipFn(t)));
+    c.addEventListener("mouseleave",()=>tipHide(tip));
+    c.addEventListener("click",()=>select(t.t));
+    c.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();select(t.t)}});
+  });
+}
+function renderPoints(){
+  const x1=-65,x2=75;
+  drawScatter({host:"ptsscatter",tip:"tip0",H:520,xd:[-70,80],yd:[50,120],xt:[-50,0,50],yt:[60,80,100],fx:v=>v===0?"0":sg(v),fy:v=>String(v),
+    zeroY:false,line:[x1,fitA+fitB*x1,x2,fitA+fitB*x2],
+    zoneTL:"Earned more points than shot quality predicts",zoneBR:"Earned fewer points than predicted",
+    xlab:"Expected goal differential (from shot quality)",ylab:"Standings points",
+    gx:t=>t.xgd,gy:t=>t.pts,tipFn:tipPts,dotLabel:t=>`${t.n}: ${t.pts} points, expected goal differential ${sg(t.xgd,0)}`,
+    aria:"Scatter plot of expected goal differential against standings points for 32 NHL teams"});
+}
+function renderScatter(){
+  drawScatter({host:"scatter",tip:"tip1",H:560,xd:[-110,110],yd:[-110,110],xt:[-100,-50,0,50,100],yt:[-100,-50,0,50,100],fx:v=>v===0?"0":sg(v),fy:v=>v===0?"0":sg(v),
+    zeroY:true,line:[-110,-110,110,110],
+    zoneTL:"Scored more than shots predicted",zoneBR:"Scored less than shots predicted",
+    xlab:"Expected goal differential (from shot quality)",ylab:"Actual goal differential",
+    gx:t=>t.xgd,gy:t=>t.gd,tipFn:tipGoals,dotLabel:t=>`${t.n}: actual ${sg(t.gd)}, expected ${sg(t.xgd,0)}`,
+    aria:"Scatter plot of expected versus actual goal differential for 32 NHL teams"});
+}
+
+/* biggest-gap list */
+function renderGapList(){
+  const over=[...teams].sort((a,b)=>b.gap-a.gap).slice(0,5), under=[...teams].sort((a,b)=>a.gap-b.gap).slice(0,5);
+  const row=t=>`<button type="button" class="gbtn ${t.t===sel?"on":""}" data-t="${t.t}"><b>${t.n}</b><span>${sg(t.gap)}</span></button>`;
+  const host=document.getElementById("gaplist");
+  host.innerHTML=`<h3>Scored more than expected</h3><p class="sub">Actual minus expected goal differential</p>${over.map(row).join("")}
+    <h3>Scored less than expected</h3><p class="sub">Actual minus expected goal differential</p>${under.map(row).join("")}`;
+  host.querySelectorAll(".gbtn").forEach(b=>b.addEventListener("click",()=>select(b.dataset.t)));
+}
+
+/* luck chart */
+function renderLuck(){
+  const rows=[...teams].sort((a,b)=>b.gap-a.gap);
+  const W=640,rh=20,m={l:46,r:56,t:30,b:8},H=m.t+m.b+rows.length*rh;
+  let maxPos=0,maxNeg=0;
+  rows.forEach(t=>{
+    const p=Math.max(t.fin,0)+Math.max(t.gk,0),n=Math.min(t.fin,0)+Math.min(t.gk,0);
+    maxPos=Math.max(maxPos,p);maxNeg=Math.min(maxNeg,n);
+  });
+  const ext=Math.ceil(Math.max(maxPos,-maxNeg)/10)*10+5;
+  const sx=v=>m.l+(v+ext)/(2*ext)*(W-m.l-m.r);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Bar chart splitting each team’s gap between actual and expected goal differential into finishing and goaltending">`;
+  for(let v=-Math.floor(ext/10)*10;v<=ext;v+=10){
+    if(v%20!==0)continue;
+    s+=`<line x1="${sx(v)}" x2="${sx(v)}" y1="${m.t-6}" y2="${H-m.b}" stroke="${v===0?"var(--muted)":"var(--grid)"}"/>`;
+    s+=`<text x="${sx(v)}" y="${m.t-12}" text-anchor="middle">${v===0?"0":sg(v)}</text>`;
+  }
+  rows.forEach((t,i)=>{
+    const y=m.t+i*rh,on=t.t===sel;
+    s+=`<g data-t="${t.t}" style="cursor:pointer">`;
+    s+=`<rect x="0" y="${y}" width="${W}" height="${rh}" fill="${on?"var(--soft)":"transparent"}"/>`;
+    if(on)s+=`<rect x="0" y="${y}" width="4" height="${rh}" fill="var(--red)"/>`;
+    s+=`<text x="${m.l-8}" y="${y+14}" text-anchor="end" style="fill:var(--ink);font-weight:${on?700:600}">${t.t}</text>`;
+    let pos=0,neg=0;
+    [["fin","var(--blue)"],["gk","var(--amber)"]].forEach(([k,col])=>{
+      const v=t[k];
+      if(v>=0){s+=`<rect x="${sx(pos)}" y="${y+4}" width="${Math.max(sx(pos+v)-sx(pos),0)}" height="${rh-8}" fill="${col}"/>`;pos+=v}
+      else{s+=`<rect x="${sx(neg+v)}" y="${y+4}" width="${Math.max(sx(neg)-sx(neg+v),0)}" height="${rh-8}" fill="${col}"/>`;neg+=v}
+    });
+    s+=`<line x1="${sx(t.gap)}" x2="${sx(t.gap)}" y1="${y+1}" y2="${y+rh-1}" stroke="var(--ink)" stroke-width="2.5"/>`;
+    s+=`<text x="${W-m.r+10}" y="${y+14}" style="fill:var(--ink);font-weight:600">${sg(t.gap)}</text>`;
+    s+=`</g>`;
+  });
+  s+="</svg>";
+  const host=document.getElementById("luckchart");host.innerHTML=s;
+  const wrap=host.parentElement,tip=document.getElementById("tip2");
+  host.querySelectorAll("g[data-t]").forEach(g=>{
+    const t=byCode[g.dataset.t];
+    g.addEventListener("mousemove",e=>tipShow(tip,wrap,e,tipGoals(t)));
+    g.addEventListener("mouseleave",()=>tipHide(tip));
+    g.addEventListener("click",()=>select(t.t));
+  });
+}
+
+/* detail panel */
+function renderDetail(){
+  const t=byCode[sel],el=document.getElementById("detail");
+  if(!t){el.innerHTML="<p>Click a team in the table or on a chart to see its profile here.</p>";return}
+  const rows=factors.filter(f=>f.key!=="sos").map(f=>{
+    const r=t.fr[f.key],pct=(32-r)/31*100;
+    return `<div class="frow"><div class="top"><span><b>${f.label}</b> ${f.fmt(t.f[f.key])}</span><span class="rankn">${ord(r)} of 32</span></div><div class="pbar"><i style="width:${pct}%"></i></div></div>`;
+  }).join("");
+  const ptsTxt = Math.abs(t.pgap)<4 ? "about as many standings points as its shot quality predicts"
+    : (t.pgap>0 ? `${Math.round(t.pgap)} more standings points than its shot quality predicts` : `${Math.round(-t.pgap)} fewer standings points than its shot quality predicts`);
+  const finTxt = t.fin>=0 ? `scored ${Math.abs(t.fin).toFixed(0)} more goals than expected` : `scored ${Math.abs(t.fin).toFixed(0)} fewer goals than expected`;
+  const gkTxt = t.gk>=0 ? `allowed ${Math.abs(t.gk).toFixed(0)} fewer than expected` : `allowed ${Math.abs(t.gk).toFixed(0)} more than expected`;
+  const verdict = Math.abs(t.gap)<10 ? "Its goal results match its chances closely." : (t.gap>0 ? "Its goal results are running ahead of its chances, so a step back would not be a surprise." : "Its goal results are running behind its chances, so it may deserve better than it got.");
+  el.innerHTML=`<h3>${t.n}</h3>
+    <p class="sub">${t.w}-${t.l}-${t.ol}, ${t.pts} points. Ranks ${ord(t.rank)} of 32 on your weights (score ${sg(t.score,2)}), ${ord(t.ptsRank)} in points and ${ord(t.gdRank)} on goal differential.</p>
+    ${rows}
+    <p class="story">${t.n} earned ${ptsTxt}. It scored ${t.gf} goals and allowed ${t.ga}; the shot-quality model expected ${t.xgf.toFixed(0)} for and ${t.xga.toFixed(0)} against. It ${finTxt} and ${gkTxt}. ${verdict} Its schedule ranked ${ord(t.fr.sos)} toughest of 32.</p>`;
+}
+
+function select(code){sel=code;renderTable();renderPoints();renderScatter();renderGapList();renderLuck();renderDetail()}
+function update(){
+  recompute();updateWeightLabels();renderTable();renderPoints();renderScatter();renderGapList();renderLuck();renderDetail();
+}
+
+buildWeights();buildHead();
+document.getElementById("fitnote").textContent = `Each extra 10 goals of expected goal differential is worth about ${(10*fitB).toFixed(1)} points, and shot quality explains ${Math.round(fitR2*100)}% of the differences in points.`;
+recompute();
+sel=[...teams].sort((a,b)=>a.rank-b.rank)[0].t;
+update();
+</script>
+</body>
+</html>
